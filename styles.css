@@ -1,0 +1,26 @@
+.portfolio {
+  background-color: #f5f5dc; /* beige */
+  color: #3b302a; /* dark brown */
+  font-family: 'Times New Roman', serif;
+}
+
+h1, h2, h3 {
+  color: #8b7355; /* brown */
+}
+
+p {
+  line-height: 1.6;
+}
+
+.button {
+  background-color: #8b7355; /* brown */
+  color: #f5f5dc; /* beige */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #3b302a; /* dark brown */
+}
