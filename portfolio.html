@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Portfolio — Mathematics Research</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS CUSTOM PROPERTIES — Light & Dark Themes
+    ============================================================ */
+    :root {
+      --bg:          #FCECC0;
+      --bg-card:     #FBE4A8;
+      --bg-card-alt: #F5D98A;
+      --text:        #834C2D;
+      --text-muted:  #A0673E;
+      --accent:      #2A2A39;
+      --accent-soft: #3D3D52;
+      --border:      rgba(131, 76, 45, 0.18);
+      --shadow:      rgba(42, 42, 57, 0.10);
+      --shadow-md:   rgba(42, 42, 57, 0.16);
+      --tag-bg:      rgba(42, 42, 57, 0.09);
+      --transition:  0.32s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    [data-theme="dark"] {
+      --bg:          #2A2A39;
+      --bg-card:     #33334A;
+      --bg-card-alt: #3C3C55;
+      --text:        #FCECC0;
+      --text-muted:  #D4B896;
+      --accent:      #FCECC0;
+      --accent-soft: #EDD9A3;
+      --border:      rgba(252, 236, 192, 0.12);
+      --shadow:      rgba(0, 0, 0, 0.28);
+      --shadow-md:   rgba(0, 0, 0, 0.40);
+      --tag-bg:      rgba(252, 236, 192, 0.10);
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      margin: 0; padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+      line-height: 1.75;
+      transition: background-color var(--transition), color var(--transition);
+      overflow-x: hidden;
+    }
+
+    /* Subtle grain texture overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.025;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+      background-size: 200px 200px;
+    }
+
+    /* ============================================================
+       LAYOUT UTILITIES
+    ============================================================ */
+    .container {
+      width: min(780px, 92%);
+      margin-inline: auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      padding-block: 80px;
+    }
+
+    .section-label {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+      opacity: 0.8;
+    }
+
+    .section-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(1.9rem, 4vw, 2.6rem);
+      font-weight: 500;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 40px;
+    }
+
+    /* ============================================================
+       FADE-IN ON SCROLL
+    ============================================================ */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ============================================================
+       HEADER
+    ============================================================ */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: var(--bg);
+      transition: background-color var(--transition);
+      border-bottom: 1px solid var(--border);
+    }
+
+    header::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--border), transparent);
+    }
+
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-block: 20px;
+    }
+
+    .header-name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+      color: var(--text);
+      font-style: italic;
+    }
+
+    /* Dark mode toggle */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 7px 16px 7px 12px;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+    }
+
+    .theme-toggle:hover {
+      background: var(--bg-card-alt);
+      transform: scale(1.04);
+      box-shadow: 0 4px 12px var(--shadow);
+    }
+
+    .toggle-icon {
+      font-size: 1rem;
+      line-height: 1;
+    }
+
+    /* ============================================================
+       HERO / PROFILE
+    ============================================================ */
+    #hero {
+      padding-block: 70px 50px;
+      text-align: center;
+    }
+
+    .profile-ring {
+      display: inline-block;
+      border-radius: 50%;
+      padding: 5px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--text-muted) 100%);
+      margin-bottom: 28px;
+      box-shadow: 0 10px 40px var(--shadow-md);
+    }
+
+    .profile-img {
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      background-color: var(--bg-card);
+      border: 4px solid var(--bg);
+    }
+
+    /* Placeholder silhouette when no image */
+    .profile-img-placeholder {
+      width: 148px;
+      height: 148px;
+      border-radius: 50%;
+      background-color: var(--bg-card-alt);
+      border: 4px solid var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3.5rem;
+      color: var(--text-muted);
+    }
+
+    .hero-name {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: clamp(2.4rem, 6vw, 3.8rem);
+      font-weight: 500;
+      letter-spacing: -0.01em;
+      line-height: 1.12;
+      margin-bottom: 12px;
+      color: var(--text);
+    }
+
+    .hero-tagline {
+      font-size: 1.0rem;
+      color: var(--text-muted);
+      font-style: italic;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.15rem;
+      margin-bottom: 6px;
+    }
+
+    .hero-institution {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      opacity: 0.75;
+      letter-spacing: 0.04em;
+    }
+
+    /* Math decoration */
+    .math-deco {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      opacity: 0.45;
+      margin-top: 18px;
+      letter-spacing: 0.05em;
+    }
+
+    /* ============================================================
+       NAVIGATION
+    ============================================================ */
+    nav {
+      padding-block: 0 60px;
+    }
+
+    .nav-inner {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .nav-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--text);
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 9px 22px;
+      cursor: pointer;
+      transition:
+        background var(--transition),
+        color var(--transition),
+        transform var(--transition),
+        box-shadow var(--transition),
+        border-color var(--transition);
+      letter-spacing: 0.02em;
+    }
+
+    .nav-btn:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      transform: scale(1.06) translateY(-1px);
+      box-shadow: 0 6px 20px var(--shadow-md);
+    }
+
+    /* ============================================================
+       DIVIDER
+    ============================================================ */
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin-block: 0;
+    }
+
+    /* ============================================================
+       ABOUT SECTION
+    ============================================================ */
+    #about .about-body {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.18rem;
+      line-height: 1.85;
+      color: var(--text);
+      max-width: 640px;
+    }
+
+    #about .about-body p + p {
+      margin-top: 1.2em;
+    }
+
+    /* Research interests tags */
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 28px;
+    }
+
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 5px 14px;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+      letter-spacing: 0.03em;
+      transition: background var(--transition), transform var(--transition);
+    }
+
+    .tag:hover {
+      background: var(--bg-card-alt);
+      transform: scale(1.04);
+    }
+
+    /* ============================================================
+       SKILLS SECTION
+    ============================================================ */
+    #skills {
+      background: transparent;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+    }
+
+    .skill-group {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 24px 22px;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .skill-group:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 32px var(--shadow-md);
+    }
+
+    .skill-group-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.08rem;
+      font-weight: 500;
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--text);
+    }
+
+    .skill-group-icon {
+      font-size: 1.1rem;
+    }
+
+    .skill-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .skill-list li {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+
+    .skill-list li::before {
+      content: '—';
+      opacity: 0.4;
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+
+    /* ============================================================
+       PROJECTS & EXPERIENCE SECTION
+    ============================================================ */
+    .projects-grid {
+      display: grid;
+      gap: 18px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px 30px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 20px;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      cursor: default;
+    }
+
+    .project-card:hover {
+      transform: translateY(-5px) scale(1.01);
+      box-shadow: 0 14px 40px var(--shadow-md);
+      background: var(--bg-card-alt);
+    }
+
+    .project-info { flex: 1; }
+
+    .project-year {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      opacity: 0.65;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-family: 'DM Sans', sans-serif;
+      margin-bottom: 6px;
+    }
+
+    .project-title {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 500;
+      margin-bottom: 8px;
+      color: var(--text);
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      max-width: 520px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 14px;
+    }
+
+    .project-tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 3px 11px;
+      font-size: 0.73rem;
+      color: var(--text-muted);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .project-arrow {
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      opacity: 0.4;
+      margin-top: 4px;
+      flex-shrink: 0;
+      transition: opacity var(--transition), transform var(--transition);
+    }
+
+    .project-card:hover .project-arrow {
+      opacity: 0.8;
+      transform: translate(3px, -3px);
+    }
+
+    /* ============================================================
+       CONTACT SECTION
+    ============================================================ */
+    #contact {
+      text-align: center;
+      padding-bottom: 100px;
+    }
+
+    #contact .section-title {
+      margin-bottom: 16px;
+    }
+
+    .contact-subtext {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 40px;
+      max-width: 480px;
+      margin-inline: auto;
+    }
+
+    .contact-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .contact-link {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 12px 24px;
+      color: var(--text);
+      text-decoration: none;
+      font-size: 0.88rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition), color var(--transition), border-color var(--transition);
+    }
+
+    .contact-link:hover {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+      transform: scale(1.05) translateY(-2px);
+      box-shadow: 0 8px 24px var(--shadow-md);
+    }
+
+    .contact-link-icon {
+      font-size: 1.05rem;
+    }
+
+    /* Primary CTA */
+    .contact-link.primary {
+      background: var(--accent);
+      color: var(--bg);
+      border-color: var(--accent);
+    }
+
+    .contact-link.primary:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent-soft);
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    footer {
+      border-top: 1px solid var(--border);
+      padding-block: 28px;
+      text-align: center;
+    }
+
+    .footer-text {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      opacity: 0.55;
+      letter-spacing: 0.04em;
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    .footer-eq {
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      opacity: 0.35;
+      margin-top: 4px;
+    }
+
+    /* ============================================================
+       DECORATIVE MATH FLOATS
+    ============================================================ */
+    .math-float {
+      position: absolute;
+      font-family: 'EB Garamond', Georgia, serif;
+      font-style: italic;
+      color: var(--text);
+      opacity: 0.04;
+      pointer-events: none;
+      user-select: none;
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 400;
+      z-index: 0;
+    }
+
+    .math-float-1 { top: 120px; left: -20px; transform: rotate(-12deg); }
+    .math-float-2 { top: 60px; right: -10px; transform: rotate(8deg); font-size: clamp(2rem, 5vw, 4rem); }
+
+    /* ============================================================
+       RESPONSIVE DESIGN
+    ============================================================ */
+    @media (max-width: 600px) {
+      section { padding-block: 56px; }
+
+      .project-card {
+        flex-direction: column;
+        padding: 22px 20px;
+      }
+
+      .project-arrow { display: none; }
+
+      .skills-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .header-name { font-size: 1rem; }
+    }
+
+    @media (max-width: 400px) {
+      .skills-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       HEADER
+  ============================================================ -->
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <span class="header-name">Your Name</span>
+
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+          <span class="toggle-icon" id="toggleIcon">☽</span>
+          <span id="toggleLabel">Dark</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+
+  <!-- ============================================================
+       HERO / PROFILE
+  ============================================================ -->
+  <section id="hero">
+    <div class="container" style="position:relative;">
+
+      <!-- Decorative faint math symbols -->
+      <span class="math-float math-float-1">∫</span>
+      <span class="math-float math-float-2">∑</span>
+
+      <!-- Profile image ring -->
+      <div class="profile-ring">
+        <!-- Replace 'your-photo.jpg' with your actual image path -->
+        <!-- If image not found, the placeholder below shows instead -->
+        <img
+          class="profile-img"
+          src="your-photo.jpg"
+          alt="Profile photo"
+          onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';"
+        />
+        <div class="profile-img-placeholder" style="display:none;">⬡</div>
+      </div>
+
+      <h1 class="hero-name">Your Full Name</h1>
+      <p class="hero-tagline">Mathematics Research Student</p>
+      <p class="hero-institution">University Name · Department of Mathematics</p>
+      <p class="math-deco">∀ε > 0, ∃δ > 0 such that ...</p>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       NAVIGATION
+  ============================================================ -->
+  <nav>
+    <div class="container">
+      <div class="nav-inner">
+        <button class="nav-btn" onclick="scrollTo('about')">About</button>
+        <button class="nav-btn" onclick="scrollTo('skills')">Skills</button>
+        <button class="nav-btn" onclick="scrollTo('projects')">Projects & Experience</button>
+        <button class="nav-btn" onclick="scrollTo('contact')">Contact</button>
+      </div>
+    </div>
+  </nav>
+
+
+  <!-- ============================================================
+       ABOUT SECTION
+  ============================================================ -->
+  <hr class="divider" />
+
+  <section id="about">
+    <div class="container fade-in">
+      <p class="section-label">Introduction</p>
+      <h2 class="section-title">About Me</h2>
+
+      <div class="about-body">
+        <p>
+          Write a brief introduction about yourself here. Describe your academic background,
+          what you study, and what draws you to mathematics. This is your space to speak
+          with quiet confidence about who you are.
+        </p>
+        <p>
+          You might mention your current research focus, your advisor, or a theorem that
+          keeps you up at night. Feel free to express your intellectual curiosity and what
+          motivates your work in pure or applied mathematics.
+        </p>
+        <p>
+          A third paragraph about your broader interests — perhaps a love of mathematical
+          writing, pedagogy, music, or the philosophy of mathematics — can make this section
+          feel genuinely human.
+        </p>
+      </div>
+
+      <!-- Research interest tags -->
+      <div class="tags">
+        <span class="tag">Algebraic Topology</span>
+        <span class="tag">Number Theory</span>
+        <span class="tag">Differential Geometry</span>
+        <span class="tag">Functional Analysis</span>
+        <span class="tag">Mathematical Logic</span>
+        <span class="tag">Add your area</span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       SKILLS SECTION
+  ============================================================ -->
+  <hr class="divider" />
+
+  <section id="skills">
+    <div class="container fade-in">
+      <p class="section-label">Expertise</p>
+      <h2 class="section-title">Skills & Tools</h2>
+
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <span class="skill-group-icon">∂</span> Mathematics
+          </div>
+          <ul class="skill-list">
+            <li>Real & Complex Analysis</li>
+            <li>Abstract Algebra</li>
+            <li>Topology</li>
+            <li>Measure Theory</li>
+            <li>PDEs</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <span class="skill-group-icon">λ</span> Programming
+          </div>
+          <ul class="skill-list">
+            <li>Python (NumPy, SciPy)</li>
+            <li>MATLAB</li>
+            <li>Mathematica</li>
+            <li>SageMath</li>
+            <li>R</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <span class="skill-group-icon">✎</span> Writing & Tools
+          </div>
+          <ul class="skill-list">
+            <li>LaTeX / BibTeX</li>
+            <li>Beamer Presentations</li>
+            <li>TikZ Diagrams</li>
+            <li>Overleaf</li>
+            <li>Git</li>
+          </ul>
+        </div>
+
+        <div class="skill-group">
+          <div class="skill-group-title">
+            <span class="skill-group-icon">◈</span> Research
+          </div>
+          <ul class="skill-list">
+            <li>Proof Writing</li>
+            <li>Literature Review</li>
+            <li>Seminar Talks</li>
+            <li>Collaboration</li>
+            <li>Add your skill</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       PROJECTS & EXPERIENCE SECTION
+  ============================================================ -->
+  <hr class="divider" />
+
+  <section id="projects">
+    <div class="container fade-in">
+      <p class="section-label">Work</p>
+      <h2 class="section-title">Projects & Experience</h2>
+
+      <div class="projects-grid">
+
+        <!-- Project / Experience Card 1 -->
+        <div class="project-card">
+          <div class="project-info">
+            <p class="project-year">2024</p>
+            <h3 class="project-title">Thesis / Research Project Title</h3>
+            <p class="project-desc">
+              A concise description of your research project or thesis. Explain the problem
+              you are investigating, the methods you use, and the significance of your findings.
+              Keep it accessible yet precise.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Topology</span>
+              <span class="project-tag">Preprint</span>
+              <span class="project-tag">Ongoing</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+
+        <!-- Project / Experience Card 2 -->
+        <div class="project-card">
+          <div class="project-info">
+            <p class="project-year">2023</p>
+            <h3 class="project-title">Research Experience / REU / Internship</h3>
+            <p class="project-desc">
+              Describe a research experience, REU, or internship. Mention the institution,
+              supervisor, and what mathematical problem you worked on. Note any outcomes
+              such as a paper, poster, or presentation.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Number Theory</span>
+              <span class="project-tag">Poster</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+
+        <!-- Project / Experience Card 3 -->
+        <div class="project-card">
+          <div class="project-info">
+            <p class="project-year">2023</p>
+            <h3 class="project-title">Teaching / TA Experience</h3>
+            <p class="project-desc">
+              Describe any teaching assistant roles, tutoring, or mathematics outreach work.
+              Mention the course, what you taught, and anything you found particularly rewarding
+              about working with students.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Calculus II</span>
+              <span class="project-tag">Teaching</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+
+        <!-- Project / Experience Card 4 — Add more as needed -->
+        <div class="project-card">
+          <div class="project-info">
+            <p class="project-year">2022</p>
+            <h3 class="project-title">Conference Talk / Expository Paper</h3>
+            <p class="project-desc">
+              Describe a talk you gave at a seminar, workshop, or conference, or an expository
+              paper or notes you wrote. Link to slides or a write-up if available.
+            </p>
+            <div class="project-tags">
+              <span class="project-tag">Talk</span>
+              <span class="project-tag">Expository</span>
+            </div>
+          </div>
+          <div class="project-arrow">↗</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       CONTACT SECTION
+  ============================================================ -->
+  <hr class="divider" />
+
+  <section id="contact">
+    <div class="container fade-in">
+      <p class="section-label">Get in Touch</p>
+      <h2 class="section-title">Contact</h2>
+
+      <p class="contact-subtext">
+        Open to research collaborations, academic discussions, and opportunities.
+      </p>
+
+      <div class="contact-links">
+        <!-- Replace # and text with your actual links -->
+        <a href="mailto:your.email@university.edu" class="contact-link primary">
+          <span class="contact-link-icon">✉</span>
+          your.email@university.edu
+        </a>
+        <a href="#" class="contact-link" target="_blank" rel="noopener">
+          <span class="contact-link-icon">⬡</span>
+          Google Scholar
+        </a>
+        <a href="#" class="contact-link" target="_blank" rel="noopener">
+          <span class="contact-link-icon">𝔾</span>
+          GitHub
+        </a>
+        <a href="#" class="contact-link" target="_blank" rel="noopener">
+          <span class="contact-link-icon">in</span>
+          LinkedIn
+        </a>
+        <a href="#" class="contact-link" target="_blank" rel="noopener">
+          <span class="contact-link-icon">↓</span>
+          CV / Résumé
+        </a>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer>
+    <div class="container">
+      <p class="footer-text">© 2025 Your Name · Mathematics Research Student</p>
+      <p class="footer-eq">∞ · curious · rigorous · open</p>
+    </div>
+  </footer>
+
+
+  <!-- ============================================================
+       JAVASCRIPT
+  ============================================================ -->
+  <script>
+    /* ---- Smooth Scroll to Section ---- */
+    function scrollTo(id) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+
+    /* ---- Dark / Light Mode Toggle ---- */
+    const html        = document.documentElement;
+    const toggleBtn   = document.getElementById('themeToggle');
+    const toggleIcon  = document.getElementById('toggleIcon');
+    const toggleLabel = document.getElementById('toggleLabel');
+
+    // Restore user preference
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    applyTheme(savedTheme);
+
+    toggleBtn.addEventListener('click', () => {
+      const current = html.getAttribute('data-theme');
+      const next    = current === 'light' ? 'dark' : 'light';
+      applyTheme(next);
+      localStorage.setItem('theme', next);
+    });
+
+    function applyTheme(theme) {
+      html.setAttribute('data-theme', theme);
+      if (theme === 'dark') {
+        toggleIcon.textContent  = '☀';
+        toggleLabel.textContent = 'Light';
+      } else {
+        toggleIcon.textContent  = '☽';
+        toggleLabel.textContent = 'Dark';
+      }
+    }
+
+    /* ---- Fade-in on Scroll (IntersectionObserver) ---- */
+    const fadeEls = document.querySelectorAll('.fade-in');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Unobserve after first trigger for performance
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -40px 0px'
+    });
+
+    fadeEls.forEach(el => observer.observe(el));
+
+    /* ---- Staggered fade-in for cards on first load ---- */
+    document.querySelectorAll('.project-card, .skill-group').forEach((card, i) => {
+      card.style.transitionDelay = `${i * 60}ms`;
+    });
+  </script>
+
+</body>
+</html>
