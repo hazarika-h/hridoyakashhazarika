@@ -700,10 +700,10 @@
   <nav>
     <div class="container">
       <div class="nav-inner">
-        <button class="nav-btn" onclick="scrollTo('about')">About</button>
-        <button class="nav-btn" onclick="scrollTo('skills')">Skills</button>
-        <button class="nav-btn" onclick="scrollTo('projects')">Projects & Experience</button>
-        <button class="nav-btn" onclick="scrollTo('contact')">Contact</button>
+        <button class="nav-btn" onclick="scrollToSection('about')">About</button>
+        <button class="nav-btn" onclick="scrollToSection('skills')">Skills</button>
+        <button class="nav-btn" onclick="scrollToSection('projects')">Projects & Experience</button>
+        <button class="nav-btn" onclick="scrollToSection('contact')">Contact</button>
       </div>
     </div>
   </nav>
@@ -953,7 +953,7 @@ The more I pay attention, the more it feels like mathematics is definitely not s
           GitHub
         -->
         </a>
-        <a href="https:/linkedin.com/in/hhazarika" class="contact-link" target="_blank" rel="noopener">
+        <a href="https://linkedin.com/in/hhazarika" class="contact-link" target="_blank" rel="noopener">
           <span class="contact-link-icon">in</span>
           LinkedIn
         </a>
@@ -982,7 +982,7 @@ The more I pay attention, the more it feels like mathematics is definitely not s
   ============================================================ -->
   <script>
     /* ---- Smooth Scroll to Section ---- */
-    function scrollTo(id) {
+   function scrollToSection(id) {
       const el = document.getElementById(id);
       if (el) {
         el.scrollIntoView({ behavior: 'smooth', block: 'start' });
