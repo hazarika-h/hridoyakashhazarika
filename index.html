@@ -505,6 +505,99 @@
       opacity: 0.8;
       transform: translate(3px, -3px);
     }
+/* ==========================================
+   Featured Research Experience
+========================================== */
+
+.project-cover{
+    position:relative;
+    width:100%;
+    height:340px;
+    overflow:hidden;
+    border-radius:22px;
+    margin-bottom:26px;
+    box-shadow:0 18px 40px var(--shadow);
+}
+
+.project-cover img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    transition:1s;
+}
+
+.project-card:hover .project-cover img{
+    transform:scale(1.08);
+}
+
+.project-overlay{
+    position:absolute;
+    inset:0;
+    background:linear-gradient(
+        to top,
+        rgba(0,0,0,.65),
+        rgba(0,0,0,.18),
+        transparent
+    );
+    display:flex;
+    align-items:flex-end;
+    padding:28px;
+}
+
+.project-overlay h3{
+    color:white;
+    font-family:'EB Garamond',serif;
+    font-size:2rem;
+    font-weight:500;
+    line-height:1.15;
+}
+
+/* ---------- Horizontal Gallery ---------- */
+
+.project-gallery{
+    display:flex;
+    gap:14px;
+    overflow-x:auto;
+    margin-top:24px;
+    padding-bottom:8px;
+    scroll-behavior:smooth;
+}
+
+.project-gallery::-webkit-scrollbar{
+    height:7px;
+}
+
+.project-gallery::-webkit-scrollbar-thumb{
+    background:var(--border);
+    border-radius:10px;
+}
+
+.project-gallery img{
+
+    flex:0 0 220px;
+    height:150px;
+
+    object-fit:cover;
+
+    border-radius:18px;
+
+    transition:.45s;
+
+    cursor:pointer;
+
+    box-shadow:0 10px 25px var(--shadow);
+
+}
+
+.project-gallery img:hover{
+
+    transform:
+        translateY(-8px)
+        scale(1.03);
+
+    box-shadow:0 20px 45px var(--shadow-md);
+
+}
 
     /* ============================================================
        CONTACT SECTION
@@ -854,21 +947,73 @@ The more I pay attention, the more it feels like mathematics is definitely not s
 
         <!-- Project / Experience Card 1 -->
         <div class="project-card">
-          <div class="project-info">
-            <p class="project-year">2026</p>
-            <h3 class="project-title">Summer Research Intern (IIT Guwahati)</h3>
-            <p class="project-desc">
-             Conducted research-oriented study in Linear Algebra with emphasis on Inner Product Spaces, Euclidean geometry, orthogonality, and related mathematical structures. Strengthened analytical thinking, proof-writing, and mathematical problem-solving abilities through guided independent study.
-  
-            </p>
-            <div class="project-tags">
-              <span class="project-tag">Linear Algebra</span>
-              <span class="project-tag">Internship</span>
-              <span class="project-tag">Ongoing</span>
-            </div>
-          </div>
-          <div class="project-arrow">↗</div>
+        <div class="project-info">
+
+    <div class="project-cover">
+
+        <img src="iit-cover.jpg" alt="IIT Guwahati">
+
+        <div class="project-overlay">
+
+            <h3>
+                Summer Research Internship
+            </h3>
+
         </div>
+
+    </div>
+
+    <p class="project-year">
+        Summer 2026
+    </p>
+
+    <p class="project-desc">
+
+        Conducted a research internship under the supervision of
+        Dr. Arup Chattopadhyay at IIT Guwahati.
+
+        The project,
+        <strong>
+        Geometric Foundations of Inner Product Spaces and Their Generalizations
+        </strong>,
+        explored Euclidean geometry, inner product spaces,
+        orthogonality, orthogonal complements,
+        projections, linear functionals,
+        and hyperplanes from a geometric viewpoint.
+
+    </p>
+
+    <div class="project-gallery">
+
+        <img src="gallery1.jpg">
+
+        <img src="gallery2.jpg">
+
+        <img src="gallery3.jpg">
+
+        <img src="gallery4.jpg">
+
+        <img src="gallery5.jpg">
+
+        <img src="gallery6.jpg">
+
+    </div>
+
+    <div class="project-tags">
+
+        <span class="project-tag">Linear Algebra</span>
+
+        <span class="project-tag">Research</span>
+
+        <span class="project-tag">IIT Guwahati</span>
+
+        <span class="project-tag">Summer Internship</span>
+
+    </div>
+
+  
+
+</div>
 
         <!-- Project / Experience Card 2 --
         <div class="project-card">
